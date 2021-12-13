@@ -28,12 +28,12 @@ public class ServiceDepartmentsImple implements ServiceDepartments {
     }
 
     @Override
-    public Departments getById(Integer department_id) {
+    public Departments getById(int department_id) {
         return dao.getById(department_id);
     }
 
     @Override
-    public String deleteById(Integer department_id) {
+    public String deleteById(int department_id) {
         return dao.deleteById(department_id);
     }
 

@@ -1,11 +1,13 @@
 package corp.proyecto.proyecto.dao;
 
-import corp.proyecto.proyecto.dto.Countries;
+
 import corp.proyecto.proyecto.dto.Departments;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -17,10 +19,12 @@ public class DepartmentsDaoImpl implements DepartmentsDao {
     private static final String GET_DEPARTMENTS = "SELECT * FROM DEPARTMENTS ";
 
 
-    /*Inyectar metodos*/
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
+
+    private JdbcTemplate jdbcTemplate;
+    public DepartmentsDaoImpl (DataSource dataSource){
+        jdbcTemplate= new JdbcTemplate(dataSource);
+    }
 
     @Override
     public Departments saveDepartments(Departments departments) {
@@ -35,7 +39,7 @@ public class DepartmentsDaoImpl implements DepartmentsDao {
     }
 
     @Override
-    public Departments getById(Integer department_id) {
+    public Departments getById(int department_id) {
         return jdbcTemplate.queryForObject(GET_DEPARTMENTS_ID,(rs, rowNum) -> {
             return new Departments(rs.getInt("department_id"),rs.getString("department_name"), rs.getInt("manager_id"),rs.getInt("location_id"));
         },department_id);
@@ -43,7 +47,7 @@ public class DepartmentsDaoImpl implements DepartmentsDao {
     }
 
     @Override
-    public String deleteById(Integer department_id) {
+    public String deleteById(int department_id) {
         jdbcTemplate.update(DELETE_DEPARTMENTS,department_id);
         return "Department delete with id "+department_id;
     }

@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
+import javax.sql.DataSource;
 import java.util.List;
 /*es una clase que conecta con la base de datos*/
 @Repository
@@ -16,9 +17,11 @@ public class CountriesDaoImpl implements CountriesDao {
     private static final String DELETE_COUNTRIES="DELETE FROM COUNTRIES WHERE country_id=?";
     private static final String GET_COUNTRIES = "SELECT * FROM COUNTRIES ";
 
-    /*Inyectar metodos*/
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+    public CountriesDaoImpl (DataSource dataSource){
+        jdbcTemplate= new JdbcTemplate(dataSource);
+    }
 
 
     @Override

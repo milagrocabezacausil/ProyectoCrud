@@ -9,7 +9,7 @@ import java.util.List;
 
 /*Indicar que es un controlador <3*/
 @RestController
-
+@RequestMapping("/proyectoHr")
 public class ControlerCountries {
     @Autowired
     ServiceCountries service;
@@ -25,7 +25,7 @@ public class ControlerCountries {
         return  service.updateCountries(countries);
     }
 
-    @PostMapping("/getByIdCountries/{id}")
+    @GetMapping("/getByIdCountries/{id}")
     public Countries getByIdCountries (@PathVariable("id") String country_id){
         return service.getById(country_id);
     }
@@ -34,7 +34,7 @@ public class ControlerCountries {
     public String deleteByIdCountries (@PathVariable("id") String country_id){
         return service.deleteById(country_id);
     }
-    @PostMapping ("/allCountries")
+    @GetMapping ("/allCountries")
     public List<Countries> allCountries(){
         return service.allCountries();
     }
